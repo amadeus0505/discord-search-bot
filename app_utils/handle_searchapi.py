@@ -1,7 +1,11 @@
 from apiclient.discovery import build
 
-with open("./app_utils/api_key", "r") as key_file:
-    api_key = key_file.read().strip()
+try:
+    with open("./app_utils/api_key", "r") as key_file:
+        api_key = key_file.read().strip()
+except FileNotFoundError:
+    print("You have to create a file named 'api_key' in ./app_utils/, which contains your google custom search api key")
+    exit(0)
 
 resource = build("customsearch", "v1", developerKey=api_key).cse()
 
