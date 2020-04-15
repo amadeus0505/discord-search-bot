@@ -25,6 +25,18 @@ class MyClient(Client):
                     await message.channel.send(embed=embed)
                 else:
                     await message.channel.send("Incomplete search query: syntax ?google <query>")
+
+            if stripped[0] == "?help":
+                await message.add_reaction("✅")
+                embed = discord.Embed(colour=discord.Colour(0xe18704))
+                embed.title = ""
+                embed.description = ""
+                embed.set_author(name=f"Help for {message.author}",
+                                 icon_url=f"https://cdn.discordapp.com/avatars/{message.author.id}/{message.author.avatar}.png")
+                embed.set_footer(text=f"Bot made by {self.get_user(490636491039572009)}")
+                embed.add_field(name="?help", value="show help", inline=False)
+                embed.add_field(name="?google <query>", value="searches for a specific query", inline=False)
+                await message.author.send(embed=embed)
             else:
                 await message.channel.send(f"Command {stripped[0]} not found")
 
